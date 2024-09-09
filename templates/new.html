@@ -1,0 +1,69 @@
+{{define "New"}}
+{{template "_head"}}
+{{template "_nav"}}
+<body class="bg-dark font-weight-light text-white">
+
+    <div class="container card bg-dark">
+        <br>
+        <div class="jumbotron jumbotron-fluid bg-primary">
+            <div class="container">
+                <h1 class="display-5">Novo produto</h1>
+                <p class="lead">Insira os detalhes</p>
+            </div>
+        </div>
+        <form method="POST" action="insert">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="codigo">Codigo:</label>
+                        <input type="number" name="codigo" class="form-control" max="200">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="descricao">Descrição:</label>
+                        <input type="text" name="descricao" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="preco">Preço:</label>
+                        <input type="number" name="preco" class="form-control" step="0.01">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="descricao">Venda:</label>
+                        <select name="venda-select" id="venda-select">
+                            <option value="0">Pesavel</option>
+                            <option value="1">Unitario</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label for="validade">Validade:</label>
+                        <input type="number" name="validade" class="form-control" max="200">
+                    </div>
+                </div>
+            </div>
+            <button type="submit" value="salvar" class="btn btn-primary">Salvar</button>
+            <a class="btn btn-warning" href="/">Voltar</a>
+        </form>
+
+
+        <br>
+    </div>
+    {{template "_footer"}}
+</body>
+
+</html>
+{{end}}

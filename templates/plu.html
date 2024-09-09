@@ -1,0 +1,112 @@
+{{define "Produtos"}}
+{{template "_head"}}
+{{template "_nav"}}
+
+<body class="bg-dark">
+    <br>
+    <div class="container">
+        <section class="card">
+            <table class="table table-striped table-dark table-hover mb-0">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th colspan="4">Tabela de Produtos</th>
+                        <th>
+                            <input id="searchPluDescription" class="form-control mr-2" style="width: 15rem;" type="text"
+                                maxlength="15" placeholder="Descrição">
+                        </th>
+                        <th colspan="3" class="d-flex flex-row">
+                            <input id="searchPlu" class="form-control mr-2" style="width: 6rem;" type="number" max="200"
+                                placeholder="código">
+                            <button class="btn btn-primary mr-2" onclick="scrollToId()">
+                                <i class="bi bi-search"></i>
+
+                            </button>
+                            <button class="btn btn-primary" onclick="exibeNew()">
+                                <i class="">+</i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr style="text-align: center;">
+                        <th></th>
+                        <th>Codigo</th>
+                        <th>Descrição</th>
+                        <th>Peso únitario (kg)</th>
+                        <th>Margem</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="newPlu" style="display: none;">
+                        <td></td>
+                        <td>
+                            <input id="plu-new" class="input-plu-new form-control" type="number"
+                                style="width: 5rem; margin: 0 auto;" max="200">
+                        </td>
+                        <td>
+                            <input id="descricao-new" class="input-plu-new form-control" type="text"
+                                style="width: 10rem; margin: 0 auto;" value="" maxlength="15">
+                        </td>
+                        <td>
+                            <input id="peso-new" class="input-plu-new form-control" type="number"
+                                style="width: 5rem; margin: 0 auto;" value="" max="999.99">
+                        </td>
+                        <td>
+                            <input id="margem-new" class="input-plu-new form-control" type="number"
+                                style="width: 5rem; margin: 0 auto;" value="" max="200">
+                        </td>
+                        <td colspan="2" style="text-align: center;">
+                            <button class="btn btn-primary" onclick="novo()">Salvar</button>
+                        </td>
+                    
+                    </tr>
+
+
+
+                    {{range .}}
+                    <tr style="text-align: center;" id="row-{{.Plu}}">
+                        <td>
+                            <button onclick="editar('{{.Plu}}')" class="input-plu-{{.Plu}} btn btn-warning">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                            <button onclick="coletarDados('{{.Plu}}')" class="input-plu-{{.Plu}} btn btn-primary"
+                                style="display: none;">
+                                <i class="bi bi-save2"></i>
+                            </button>
+                        </td>
+                        <td id="{{.Plu}}">{{.Plu}}</td>
+                        <td class="form-plu">
+                            <span id="descricao-{{.Plu}}" class="input-plu-{{.Plu}} descricao-todos-produtos">{{.Descricao}}</span>
+                            <input name="descricao-{{.Plu}}" class="input-plu-{{.Plu}} form-control" type="text"
+                                style="display: none; width: 10rem;" value="{{.Descricao}}" maxlength="15">
+                        </td>
+                        <td class="form-plu">
+                            <span class="input-plu-{{.Plu}} decimal">{{.Peso}}</span>
+                            <input name="peso-{{.Plu}}" class="input-plu-{{.Plu}} form-control" type="number"
+                                style="display: none; width: 5rem;" value="{{.Peso}}" max="999.99">
+                        </td>
+
+                        <td class="form-plu">
+                            <span class="input-plu-{{.Plu}}">{{.Margem}} (g)</span>
+                            <input name="margem-{{.Plu}}" class="input-plu-{{.Plu}} form-control" type="number"
+                                style="display: none; width: 5rem;" value="{{.Margem}}" max="200">
+                        </td>
+                        <td>
+                            <button onclick="excluir('{{.Plu}}')" class="btn btn-danger">
+                                <i class="bi bi-trash2-fill"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {{end}}
+                </tbody>
+
+            </table>
+        </section>
+    </div>
+    <br>
+    {{template "_footer"}}
+</body>
+
+</html>
+{{end}}

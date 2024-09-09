@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": ["es2017", "dom"],
+        "module": "commonjs",
+        "outDir": "./static",
+        "strict": true,
+        "esModuleInterop": true,
+        "declaration": true, // Garante que os arquivos .d.ts sejam gerados
+        "sourceMap": true // Gera arquivos de mapeamento de origem para depuração
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist"]
+}

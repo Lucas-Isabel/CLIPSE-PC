@@ -1,0 +1,170 @@
+{{define "Index"}}
+{{template "_head"}}
+{{template "_nav"}}
+
+<body class="bg-dark">
+    <br>
+    <div class="container" style="margin-left: 0px; margin-right: 0px; min-width: 100vw; height: 70vh;">
+        <div class="row">
+            <section id="balanca" class="col-lg-5 balanca-full">
+                <div id="balanca-peso" class="card bg-dark col-lg-8 p-0">
+                    <table class="table table-striped table-dark mb-0" style="min-height: 60vh;">
+                        <thead>
+                            <tr style="text-align: center;">
+                                <th>
+                                    PESO
+                                </th>
+                                <th>
+                                    TARA
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="text-align: center;">
+                                <td><span id="peso">0.000</span> kg</td>
+                                <td><span id="tara">0.000</span>0.000 kg</td>
+                            </tr>
+                            <tr style="text-align: center;">
+                                <td style="font-size: xx-large;" colspan="2">
+                                    Peso Esperado<br>
+                                    <span id="PesoEsperado">0.000</span> kg<br>
+                                    Indicador
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div
+                        style="border: solid 1px white; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="color: white; font-size: xx-large;">
+                            Status conexão
+                        </div>
+                        <div id="status">
+
+                        </div>
+                    </div>
+                    <div id="erro-status" style="color: white; font-size: xx-large;">
+                            
+                    </div>
+                </div>
+                <div id="item-caixa" class="card bg-dark col-lg-4 p-0">
+                    <table class="table table-striped table-dark mb-0" style="min-height: 60vh;">
+                        <thead>
+                            <tr style="text-align: center;">
+                                <th>
+                                    <button class="btn btn-primary">
+                                        <i class="">Produtos na Caixa</i>
+                                    </button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="produtos">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section id="lista-produtos" class="col-lg-7">
+                <div class="card">
+                    <table class="table table-striped table-dark table-hover mb-0">
+                        <thead>
+                            <tr style="text-align: center;">
+                                <th><button class="btn btn-primary" onclick="exibeFullVision()">Esconder</button></th>
+                                <th colspan="3">Tabela de Produtos</th>
+                                <th>
+                                    <input id="searchPluDescription" class="form-control mr-2" style="width: 6rem;"
+                                        type="text" maxlength="15" placeholder="Descrição">
+                                </th>
+                                <th colspan="2" class="d-flex flex-row">
+                                    <input id="searchPlu" class="form-control mr-2" style="width: 6rem;" type="number"
+                                        max="200" placeholder="código">
+                                    <button class="btn btn-primary mr-2" onclick="scrollToId()">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="text-align: center;">
+                                <td colspan="2">Codigo</td>
+                                <th colspan="2">Descrição</td>
+                                <th style="width: 10rem;">Peso/Un (kg)</td> <!-- Ajuste de largura -->
+                                <th style="width: 7rem;">Margem</td> <!-- Ajuste de largura -->
+                            </tr>
+                            <tr id="newPlu" style="display: none;">
+                                <td></td>
+                                <td>
+                                    <input id="plu-new" class="input-plu-new form-control" type="number"
+                                        style="width: 5rem; margin: 0 auto;" max="200">
+                                </td>
+                                <td>
+                                    <input id="descricao-new" class="input-plu-new form-control" type="text"
+                                        style="width: 10rem; margin: 0 auto;" value="" maxlength="15">
+                                </td>
+                                <td>
+                                    <input id="peso-new" class="input-plu-new form-control" type="number"
+                                        style="width: 5rem; margin: 0 auto;" value="" max="999.99">
+                                </td>
+                                <td>
+                                    <input id="margem-new" class="input-plu-new form-control" type="number"
+                                        style="width: 5rem; margin: 0 auto;" value="" max="200">
+                                </td>
+                                <td colspan="2" style="text-align: center;">
+                                    <button class="btn btn-primary" onclick="novo()">Salvar</button>
+                                </td>
+                            </tr>
+                            {{range .}}
+                            <tr style="text-align: center;" id="row-{{.Plu}}" class="linha-PLU"
+                                onclick="showRowInfo(this)">
+                                <td id="{{.Plu}}" colspan="2">{{.Plu}}</td>
+                                <td class="form-plu" colspan="2">
+                                    <span id="descricao-{{.Plu}}"
+                                        class="input-plu-{{.Plu}} descricao-todos-produtos">{{.Descricao}}</span>
+                                    <input name="descricao-{{.Plu}}" class="input-plu-{{.Plu}} form-control" type="text"
+                                        style="display: none; width: 10rem;" value="{{.Descricao}}" maxlength="15">
+                                </td>
+                                <td class="form-plu">
+                                    <span id="peso-{{.Plu}}" class="input-plu-{{.Plu}} decimal">{{.Peso}}</span>
+                                    <input name="peso-{{.Plu}}" class="input-plu-{{.Plu}} form-control" type="number"
+                                        style="display: none; width: 10rem;" value="{{.Peso}}" max="999.99">
+                                    <!-- Ajuste de largura -->
+                                </td>
+                                <td class="form-plu">
+                                    <span id="margem-{{.Plu}}" class="input-plu-{{.Plu}}">{{.Margem}} (g)</span>
+                                    <input name="margem-{{.Plu}}" class="input-plu-{{.Plu}} form-control" type="number"
+                                        style="display: none; width: 7rem;" value="{{.Margem}}" max="200">
+                                    <!-- Ajuste de largura -->
+                                </td>
+                                <!-- <td>
+                                    <button onclick="editar('{{.Plu}}')" class="input-plu-{{.Plu}} btn btn-warning">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </button>
+                                    <button onclick="coletarDados('{{.Plu}}')"
+                                        class="input-plu-{{.Plu}} btn btn-primary" style="display: none;">
+                                        <i class="bi bi-save2"></i>
+                                    </button>
+                                </td> -->
+                                <!-- <td>
+                                    <button onclick="excluir('{{.Plu}}')" class="btn btn-danger">
+                                        <i class="bi bi-trash2-fill"></i>
+                                    </button>
+                                </td> -->
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section id="buttonView" class="col-lg-1" style="display: none;">
+                <button class="btn btn-primary" onclick="exibeFullVision()">
+                    <i class="">+</i>
+                </button>
+            </section>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    {{template "_footer"}}
+</body>
+
+</html>
+{{end}}

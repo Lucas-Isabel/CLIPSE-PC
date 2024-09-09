@@ -1,0 +1,73 @@
+{{define "Import"}}
+{{template "_head"}}
+{{template "_nav"}}
+
+<body class="bg-dark font-weight-light text-white">
+    <br>
+    <div class="container card bg-dark">
+        <br>
+
+        <div class="jumbotron jumbotron-fluid bg-primary mb-0">
+            <div class="container">
+                <h1 class="display-5">Dados do equipamento</h1>
+            </div>
+        </div>
+        <div class="jumbotron jumbotron-fluid bg-dark mb-0">
+            <div class="container">
+                <!-- <h1 class="display-5">Importação dos dados</h1> -->
+                <p class="display-5">Ajuste a configuração</p>
+                <h3 class="display-5">Data do envio anterior: <span id="data">{{.EventDate}}</span></h3>
+            </div>
+        </div>
+        <form id="importForm" method="POST" action="send">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="porta">Porta:</label>
+                        <input type="number" name="porta" class="form-control" max="99" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="velocidade">Velocidade:</label>
+                        <select class="form-control" name="velocidade-select" id="venda-select">
+                            <option value="9600" selected>9600</option>
+                            <option value="115200">115200</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <button type="submit" value="salvar" class="btn btn-success" onclick="startImport(event)">Salvar</button>
+                        <a class="btn btn-info" href="/">Voltar</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="progress-bar mt-3"
+            style="display:none; width: 100%; background-color: #f3f3f3; border-radius: 4px;">
+            <div class="progress bg-primary" id="progress"
+                style="width: 0%; height: 24px; text-align: center; line-height: 24px; color: white;">0%</div>
+        </div>
+
+
+        <br>
+    </div>
+    <br>
+    {{template "_footer"}}
+</body>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        data = document.getElementById("data").textContent
+        dataFormatada = formatarData(data)
+        document.getElementById("data").textContent = dataFormatada
+    })
+</script>
+
+</html>
+{{end}}

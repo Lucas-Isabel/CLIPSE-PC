@@ -1,0 +1,78 @@
+{{define "File"}}
+{{template "_head"}}
+{{template "_nav"}}
+
+<body class="bg-dark font-weight-light text-white">
+    <br>
+    <div class="container bg-dark">
+        <section class="card bg-dark">
+
+            <div class="jumbotron jumbotron-fluid bg-primary mb-0">
+                <div class="container">
+                    <h1 class="display-5">Arquivo de importação</h1>
+                </div>
+            </div>
+            <h3 class="display-5">Insira os detalhes</h3>
+            <form method="POST" action="push" class="p-5">
+                
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="descricao">Caminho:</label>
+                            <select name="arquivo" id="arquivo" class="form-control text-break h-25">
+                                <option class="text-break" value="{{.Caminho}}">{{.Caminho}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="tipo">Tipo:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <div class="btn btn-primary">
+
+                                <input type="radio" id="txitens" name="tipo" value="Txitens" checked />
+                                <label for="txitens" class="fw-bold">TXITENS</label>
+                            </div class="btn btn-primary">
+
+                            <div class="btn btn-primary">
+                                <input type="radio" id="itensmgv" name="tipo" value="ItensMGV" />
+                                <label for="itensmgv" class="fw-bold">ITENSMGV</label>
+                            </div class="btn btn-primary">
+
+                            <div class="btn btn-primary">
+                                <input type="radio" id="cadtxt" name="tipo" value="CADTXT" />
+                                <label for="cadtxt" class="fw-bold">CADTXT</label>
+                            </div class="btn btn-primary">
+
+                            <div class="btn btn-primary">
+                                <input type="radio" id="csv" name="tipo" value="CSV" />
+                                <label for="csv" class="fw-bold">CSV</label>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" value="salvar" class="btn btn-primary">Puxar dados</button>
+                <a class="btn btn-warning" href="/file">Mudar arquivo</a>
+                <a class="btn btn-warning" href="/">Voltar</a>
+
+            </form>
+
+            <br>
+        </section>
+    </div>
+    <br>
+    {{template "_footer"}}
+</body>
+
+</html>
+{{end}}
